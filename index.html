@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正能量弹窗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        
+        .popup {
+            position: fixed;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            max-width: 200px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .popup:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .popup .close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        
+        .popup .close:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // 正能量话术列表
+        const positiveMessages = [
+            "今天是充满希望的一天！",
+            "你很棒，继续加油！",
+            "每一步都在靠近梦想！",
+            "相信自己，你能做到！",
+            "阳光总在风雨后！",
+            "今天的努力，明天的收获！",
+            "保持微笑，好运自来！",
+            "你是独一无二的！",
+            "每天进步一点点！",
+            "生活因你而美好！",
+            "勇敢面对，一切都会好！",
+            "你的努力值得肯定！",
+            "心态决定一切！",
+            "未来可期，继续前行！",
+            "珍惜当下，享受生活！"
+        ];
+        
+        // 随机颜色生成
+        function getRandomColor() {
+            const colors = [
+                '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4',
+                '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F',
+                '#BB8FCE', '#85C1E2', '#F8B739', '#52B788'
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+        
+        // 创建弹窗
+        function createPopup() {
+            const popup = document.createElement('div');
+            popup.className = 'popup';
+            
+            // 随机位置
+            const x = Math.random() * (window.innerWidth - 220);
+            const y = Math.random() * (window.innerHeight - 100);
+            
+            popup.style.left = `${x}px`;
+            popup.style.top = `${y}px`;
+            
+            // 随机颜色
+            popup.style.backgroundColor = getRandomColor();
+            
+            // 随机正能量话术
+            const message = positiveMessages[Math.floor(Math.random() * positiveMessages.length)];
+            
+            popup.innerHTML = `
+                <span class="close">×</span>
+                <div>${message}</div>
+            `;
+            
+            // 点击关闭按钮移除弹窗
+            const closeBtn = popup.querySelector('.close');
+            closeBtn.addEventListener('click', () => {
+                popup.remove();
+            });
+            
+            // 添加到页面
+            document.body.appendChild(popup);
+            
+            // 确保新弹窗在最上层
+            popup.style.zIndex = Date.now();
+        }
+        
+        // 定时生成弹窗
+        setInterval(createPopup, 500);
+    </script>
+</body>
+</html>
