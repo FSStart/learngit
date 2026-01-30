@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>~婷儿老婆爱你呀~</title>
     <style>
         * {
@@ -10,13 +11,21 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f0f0;
             overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
         }
         
+        html {
+            height: 100%;
+        }
+
         .popup {
             position: fixed;
             width: 100px;
@@ -36,13 +45,13 @@
             padding: 0;
             background: transparent;
         }
-        
+
         .popup .message {
             position: relative;
             z-index: 1;
             padding: 10px;
         }
-        
+
         .popup::before,
         .popup::after {
             content: '';
@@ -53,35 +62,36 @@
             border-radius: 50px 50px 0 0;
             background: var(--heart-color);
         }
-        
+
         .popup::before {
             left: 50px;
             transform: rotate(-45deg);
             transform-origin: 0 100%;
         }
-        
+
         .popup::after {
             left: 0;
             transform: rotate(45deg);
             transform-origin: 100% 100%;
         }
-        
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: scale(0.8);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
             }
         }
-        
+
         .popup:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
-        
+
         .popup .close {
             position: absolute;
             top: 5px;
@@ -89,12 +99,13 @@
             font-size: 16px;
             opacity: 0.8;
         }
-        
+
         .popup .close:hover {
             opacity: 1;
         }
     </style>
 </head>
+
 <body>
     <script>
         // 正能量话术列表
@@ -171,7 +182,7 @@
             "老婆，你是我的最爱！",
             "爱你老婆，永不分离！"
         ];
-        
+
         // 随机颜色生成
         function getRandomColor() {
             const colors = [
@@ -181,46 +192,49 @@
             ];
             return colors[Math.floor(Math.random() * colors.length)];
         }
-        
+
         // 创建弹窗
         function createPopup() {
             const popup = document.createElement('div');
             popup.className = 'popup';
-            
+
             // 随机位置
-            const x = Math.random() * (window.innerWidth - 220);
-            const y = Math.random() * (window.innerHeight - 100);
-            
+            const popupWidth = 100;
+            const popupHeight = 90;
+            const x = Math.random() * (window.innerWidth - popupWidth);
+            const y = Math.random() * (window.innerHeight - popupHeight);
+
             popup.style.left = `${x}px`;
             popup.style.top = `${y}px`;
-            
+
             // 随机颜色
             const color = getRandomColor();
             popup.style.setProperty('--heart-color', color);
-            
+
             // 随机正能量话术
             const message = positiveMessages[Math.floor(Math.random() * positiveMessages.length)];
-            
+
             popup.innerHTML = `
                 <span class="close">×</span>
                 <span class="message">${message}</span>
             `;
-            
+
             // 点击关闭按钮移除弹窗
             const closeBtn = popup.querySelector('.close');
             closeBtn.addEventListener('click', () => {
                 popup.remove();
             });
-            
+
             // 添加到页面
             document.body.appendChild(popup);
-            
+
             // 确保新弹窗在最上层
             popup.style.zIndex = Date.now();
         }
-        
+
         // 定时生成弹窗
         setInterval(createPopup, 500);
     </script>
 </body>
+
 </html>
